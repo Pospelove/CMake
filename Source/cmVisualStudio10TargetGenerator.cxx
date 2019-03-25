@@ -813,18 +813,18 @@ void cmVisualStudio10TargetGenerator::WriteDotNetReference(
 
 void cmVisualStudio10TargetGenerator::WriteImports(Elem& e0)
 {
-  cmPropertyMap const& props = this->GeneratorTarget->Target->GetProperties();
-  for (auto const& i : props) {
-    if (i.first.find("VS_PROJECT_IMPORT_") == 0) {
-      std::string path = i.first.substr(18);
-      if (!path.empty()) {
-        if (!cmsys::SystemTools::FileIsFullPath(path)) {
-          path = this->Makefile->GetCurrentSourceDirectory() + "/" + path;
-        }
-        ConvertToWindowsSlash(path);
-        Elem e1(e0, "Import");
-        e1.Attribute("Project", path);
+  const char* imports =
+    this->GeneratorTarget->Target->GetProperty("VS_PROJECT_IMPORT");
+  if (imports) {
+    std::vector<std::string> argsSplit;
+    cmSystemTools::ExpandListArgument(std::string(imports), argsSplit, false);
+    for (auto& path : argsSplit) {
+      if (!cmsys::SystemTools::FileIsFullPath(path)) {
+        path = this->Makefile->GetCurrentSourceDirectory() + "/" + path;
       }
+      ConvertToWindowsSlash(path);
+      Elem e1(e0, "Import");
+      e1.Attribute("Project", path);
     }
   }
 }
