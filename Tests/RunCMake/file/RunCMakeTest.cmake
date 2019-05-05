@@ -1,5 +1,6 @@
 include(RunCMake)
 
+run_cmake(COPY-always)
 run_cmake(CREATE_LINK)
 run_cmake(CREATE_LINK-COPY_ON_ERROR)
 run_cmake(CREATE_LINK-noarg)

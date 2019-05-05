@@ -298,6 +298,8 @@ bool cmFileCopier::CheckKeyword(std::string const& arg)
       this->Doing = DoingNone;
       this->MatchlessFiles = false;
     }
+  } else if (arg == "ALWAYS") {
+    this->Always = true;
   } else {
     return false;
   }

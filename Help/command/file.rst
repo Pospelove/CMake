@@ -308,6 +308,7 @@ Create the given directories and their parents as needed.
 .. code-block:: cmake
 
   file(<COPY|INSTALL> <files>... DESTINATION <dir>
+       [ALWAYS]
        [FILE_PERMISSIONS <permissions>...]
        [DIRECTORY_PERMISSIONS <permissions>...]
        [NO_SOURCE_PERMISSIONS] [USE_SOURCE_PERMISSIONS]
@@ -320,9 +321,9 @@ destination folder.  Relative input paths are evaluated with respect
 to the current source directory, and a relative destination is
 evaluated with respect to the current build directory.  Copying
 preserves input file timestamps, and optimizes out a file if it exists
-at the destination with the same timestamp.  Copying preserves input
-permissions unless explicit permissions or ``NO_SOURCE_PERMISSIONS``
-are given (default is ``USE_SOURCE_PERMISSIONS``).
+at the destination with the same timestamp (use ``ALWAYS`` to disable).
+Copying preserves input permissions unless explicit permissions or
+``NO_SOURCE_PERMISSIONS`` are given (default is ``USE_SOURCE_PERMISSIONS``).
 
 See the :command:`install(DIRECTORY)` command for documentation of
 permissions, ``FILES_MATCHING``, ``PATTERN``, ``REGEX``, and
